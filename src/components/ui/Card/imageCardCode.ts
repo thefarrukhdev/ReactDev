@@ -1,4 +1,4 @@
-export const  ImageCardCode= `import React, { useState } from 'react';
+export const ImageCardCode = `import React, { useState } from 'react';
 import { 
   Heart, 
   Share2, 

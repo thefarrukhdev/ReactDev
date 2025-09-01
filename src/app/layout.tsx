@@ -25,11 +25,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
       >
         <div className="flex h-screen">
           <div className="flex-1 flex flex-col">
-            <main className="flex-1 overflow-y-auto p-6">{children}</main>
+            <main className="flex-1 overflow-y-auto max-w-full">
+              <div className="p-6 max-w-full">{children}</div>
+            </main>
           </div>
         </div>
       </body>
