@@ -15,6 +15,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Component Library",
   description: "Custom component library with Next.js",
+  icons: {
+    icon: "/ReactLogo.png", // ✅ To‘g‘ri format
+  },
 };
 
 export default function RootLayout({
@@ -23,16 +26,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className="h-full">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 dark:bg-neutral-900 h-full overflow-hidden`}
       >
-        <div className="flex h-screen">
-          <div className="flex-1 flex flex-col">
-            <main className="flex-1 overflow-y-auto max-w-full">
-              <div className="p-6 max-w-full">{children}</div>
-            </main>
-          </div>
+        {/* Root container */}
+        <div className="flex flex-col h-full w-full">
+          {/* Children (Layouts & Pages) */}
+          {children}
         </div>
       </body>
     </html>

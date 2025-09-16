@@ -26,9 +26,18 @@ export default function HomePage() {
       </div>
 
       {/* Content */}
-      <main className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white">
+      <main className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
+        <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent">
+          Discover Amazing React Components
+        </h1>
+
+        <p className="text-lg md:text-xl text-gray-300 mt-4 max-w-xl">
+          A curated collection of beautiful, reusable, and production-ready components for your next project.
+        </p>
+
         <GoToMainButton />
       </main>
+
     </div>
   );
 }

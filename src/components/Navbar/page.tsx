@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import Logo from "./NavbarLogo";
 import SearchInput from "./NavbarSearch";
-import NavbarActions from "./NavbarActions";
+
 
 interface NavbarProps {
   onSearch: (query: string, enterPressed?: boolean) => void;
@@ -46,10 +46,10 @@ export default function Navbar({ onSearch, className = "" }: NavbarProps) {
           setIsFocused={setIsSearchFocused}
           isScrolled={isScrolled}
         />
-        <NavbarActions />
+        
       </div>
 
-      {/* Gradient chiziq ostida */}
+      
       <div
         className={`absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/30 to-transparent
         transition-all duration-500 ease-out

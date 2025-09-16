@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Navbar from "@/components/Navbar/Navbar";
+import Navbar from "@/components/Navbar/page";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import ComponentPreview from "@/components/componentPreview";
 import { NeoGlassButton } from "@/components/ui/Button/NeoglassButton";
@@ -14,7 +14,7 @@ export default function MainContent() {
   const [showPreview, setShowPreview] = useState(true);
   const [showCode, setShowCode] = useState(false);
 
-  // Filter components by search
+  // 🔎 Filter
   const filteredComponents = componentsList.filter(c =>
     c.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -24,7 +24,7 @@ export default function MainContent() {
   const handleSearch = (query: string, enterPressed?: boolean) => {
     setSearchQuery(query);
     if (enterPressed && filteredComponents.length > 0) {
-      handleSelect(filteredComponents[0].id);
+      handleSelect(filteredComponents[0].id); // Enter bosilsa birinchi mos komponentni tanlash
     }
   };
 
@@ -36,7 +36,7 @@ export default function MainContent() {
 
   return (
     <div className="flex flex-col h-screen w-screen bg-gray-900 text-slate-100 overflow-hidden">
-      {/* Navbar */}
+      {/* ✅ Navbar endi search bilan ishlaydi */}
       <Navbar onSearch={handleSearch} />
 
       <div className="flex flex-1 h-full overflow-hidden">
@@ -47,66 +47,37 @@ export default function MainContent() {
 
         {/* Main Content */}
         <main className="flex-1 h-full overflow-y-auto w-full box-border">
-
           {!activeComponent ? (
             <div className="flex flex-col items-center justify-center h-full w-full text-center text-gray-400">
-              <p className="text-lg">👈 Chap tomondan komponent tanlang yoki Enter bosing</p>
+              <p className="text-lg">👈 Chap tomondan komponent tanlang yoki Search orqali qidiring</p>
             </div>
           ) : (
             <div className="flex flex-col space-y-6 w-full h-full p-0">
-              {/* Component Title */}
               <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-400 via-purple-500 to-pink-400 bg-clip-text text-transparent text-center mt-6">
                 {activeComponent.name}
               </h1>
 
-              {/* Toggle Buttons */}
+              {/* Toggle */}
               <div className="flex gap-3 justify-center mt-2">
-                <NeoGlassButton
-                  onClick={() => {
-                    setShowPreview(true);
-                    setShowCode(false);
-                  }}
-                  className="w-10 h-10 p-2 rounded-full flex items-center justify-center"
-                  aria-label="Show Preview"
-                  variant="secondary"
-                >
+                <NeoGlassButton onClick={() => { setShowPreview(true); setShowCode(false); }}>
                   <Eye className="w-5 h-5 text-cyan-400" />
                 </NeoGlassButton>
-
-                <NeoGlassButton
-                  onClick={() => {
-                    setShowCode(true);
-                    setShowPreview(false);
-                  }}
-                  className="w-10 h-10 p-2 rounded-full flex items-center justify-center"
-                  aria-label="Show Code"
-                  variant="secondary"
-                >
+                <NeoGlassButton onClick={() => { setShowCode(true); setShowPreview(false); }}>
                   <Code className="w-5 h-5 text-purple-400" />
                 </NeoGlassButton>
               </div>
 
-              {/* Preview Section */}
               {showPreview && !showCode && (
                 <div className="flex-1 w-full flex items-center justify-center mt-4 px-2">
-                  <div className="w-full max-w-full h-full bg-gray-800 border border-gray-700 rounded-xl p-4 sm:p-6 shadow-lg shadow-purple-900/30 hover:shadow-purple-700/40 transition-all duration-300 box-border">
+                  <div className="w-full max-w-full h-full bg-gray-800 border border-gray-700 rounded-xl p-4 shadow-lg">
                     {activeComponent.element}
                   </div>
-
                 </div>
               )}
 
-              {/* Code / Details Section */}
               {showCode && (
                 <div className="flex-1 w-full px-2">
-                  <ComponentPreview
-                    name={activeComponent.name}
-                    element={activeComponent.element}
-                    install={activeComponent.install}
-                    usage={activeComponent.usage}
-                    code={activeComponent.code}
-                    showPreview={showPreview}
-                  />
+                  <ComponentPreview {...activeComponent} showPreview={showPreview} />
                 </div>
               )}
             </div>

@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useCallback, useMemo } from "react";
 import { Search } from "lucide-react";
 
@@ -10,18 +12,31 @@ interface SearchProps {
   isScrolled: boolean;
 }
 
-export default function SearchInput({ value, onChange, onSearch, isFocused, setIsFocused, isScrolled }: SearchProps) {
-  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(e.target.value);
-    onSearch(e.target.value, false);
-  }, [onChange, onSearch]);
+export default function NavbarSearch({
+  value,
+  onChange,
+  onSearch,
+  isFocused,
+  setIsFocused,
+  isScrolled,
+}: SearchProps) {
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      onChange(e.target.value);
+      onSearch(e.target.value, false);
+    },
+    [onChange, onSearch]
+  );
 
-  const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      onSearch(value, true);
-    }
-  }, [onSearch, value]);
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        onSearch(value, true);
+      }
+    },
+    [onSearch, value]
+  );
 
   const inputClasses = useMemo(
     () =>
@@ -43,10 +58,21 @@ export default function SearchInput({ value, onChange, onSearch, isFocused, setI
   );
 
   return (
-    <div className={`flex-1 max-w-sm mx-4 transition-all duration-500 ease-out ${isScrolled ? "sm:max-w-xs" : "sm:max-w-md"}`}>
+    <div
+      className={`flex-1 max-w-sm mx-4 transition-all duration-500 ease-out ${
+        isScrolled ? "sm:max-w-xs" : "sm:max-w-md"
+      }`}
+    >
       <div className="relative group">
         <div className="absolute left-3 top-1/2 -translate-y-1/2 z-10 pointer-events-none transition-all duration-300 ease-out">
-          <Search className={`h-4 w-4 transition-all duration-300 ease-out ${isFocused ? "text-blue-500 dark:text-blue-400 scale-110" : "text-gray-400 dark:text-gray-500"}`} aria-hidden="true" />
+          <Search
+            className={`h-4 w-4 transition-all duration-300 ease-out ${
+              isFocused
+                ? "text-blue-500 dark:text-blue-400 scale-110"
+                : "text-gray-400 dark:text-gray-500"
+            }`}
+            aria-hidden="true"
+          />
         </div>
         <input
           type="search"
@@ -61,7 +87,9 @@ export default function SearchInput({ value, onChange, onSearch, isFocused, setI
           autoComplete="off"
           spellCheck={false}
         />
-        {isFocused && <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500/10 to-purple-500/10 blur-xl -z-10 animate-pulse" />}
+        {isFocused && (
+          <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500/10 to-purple-500/10 blur-xl -z-10 animate-pulse" />
+        )}
       </div>
     </div>
   );
