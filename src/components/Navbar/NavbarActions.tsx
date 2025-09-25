@@ -1,63 +1,62 @@
-// "use client";
+import React from "react";
+import { Menu, Settings, User } from "lucide-react";
 
-// import { useState, useCallback } from "react";
-// // import NavbarSearch from "./NavbarSearch";
+interface NavbarActionsProps {
+  isScrolled: boolean;
+}
 
-// export default function NavbarActions() {
-//   // 🔍 Search state
-//   const [searchQuery, setSearchQuery] = useState("");
-//   const [isSearchFocused, setIsSearchFocused] = useState(false);
-//   const [isScrolled, setIsScrolled] = useState(false);
+export default function NavbarActions({ isScrolled }: NavbarActionsProps) {
+  return (
+    <div className="flex items-center space-x-2 min-w-0 flex-shrink-0">
+      {/* Settings Button */}
+      <button
+        className="p-2 rounded-full transition-all duration-500 cubic-bezier(0.4, 0, 0.2, 1) 
+                   hover:bg-white/10 hover:backdrop-blur-xl hover:scale-110 active:scale-95 
+                   hover:shadow-lg hover:shadow-white/10 focus:outline-none focus:ring-2 
+                   focus:ring-white/30 group"
+        aria-label="Settings"
+      >
+        <Settings 
+          className="h-5 w-5 text-white/80 group-hover:text-white group-hover:rotate-90 
+                     transition-all duration-500 cubic-bezier(0.4, 0, 0.2, 1) drop-shadow-sm" 
+        />
+      </button>
 
-//   // 🔄 Qidiruv handler
-//   const handleSearch = useCallback((query: string, enterPressed?: boolean) => {
-//     console.log("Searching:", query, enterPressed ? "(Enter pressed)" : "");
-//     // Bu yerda API call yoki filter logic bo'lishi mumkin
-//   }, []);
+      {/* User Profile Button */}
+      <button
+        className="p-2 rounded-full transition-all duration-500 cubic-bezier(0.4, 0, 0.2, 1) 
+                   hover:bg-white/10 hover:backdrop-blur-xl hover:scale-110 active:scale-95 
+                   hover:shadow-lg hover:shadow-white/10 focus:outline-none focus:ring-2 
+                   focus:ring-white/30 group relative overflow-hidden"
+        aria-label="User profile"
+      >
+        <div className="relative">
+          <User 
+            className="h-5 w-5 text-white/80 group-hover:text-white 
+                       transition-all duration-500 cubic-bezier(0.4, 0, 0.2, 1) drop-shadow-sm" 
+          />
+          {/* Hover glow effect */}
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-400/20 
+                          rounded-full opacity-0 group-hover:opacity-100 blur-sm 
+                          transition-opacity duration-500 -z-10" />
+        </div>
+      </button>
 
-//   return (
-//     <div className="flex items-center space-x-3 flex-shrink-0">
-//       {/* 🔎 Search qo'shildi */}
-//       {/* <NavbarSearch
-//         value={searchQuery}
-//         onChange={setSearchQuery}
-//         onSearch={handleSearch}
-//         isFocused={isSearchFocused}
-//         setIsFocused={setIsSearchFocused}
-//         isScrolled={isScrolled}
-//       /> */}
-
-//       {/* 🌗 Theme toggle */}
-//       <button
-//         type="button"
-//         className="hidden sm:flex items-center justify-center w-10 h-10 rounded-full bg-gray-100/80 dark:bg-gray-800/80 hover:bg-gray-200/80 dark:hover:bg-gray-700/80 border border-gray-200/60 dark:border-gray-700/60 backdrop-blur-sm transition-all duration-300 ease-out hover:scale-110 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500/50 group"
-//         aria-label="Toggle theme"
-//       >
-//         <svg
-//           className="h-4 w-4 text-gray-600 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-gray-100 transition-colors duration-300"
-//           fill="none"
-//           viewBox="0 0 24 24"
-//           stroke="currentColor"
-//         >
-//           <path
-//             strokeLinecap="round"
-//             strokeLinejoin="round"
-//             strokeWidth={2}
-//             d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-//           />
-//         </svg>
-//       </button>
-
-//       {/* 👤 User avatar */}
-//       <button
-//         type="button"
-//         className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 p-0.5 transition-all duration-300 ease-out hover:scale-110 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500/50 shadow-lg hover:shadow-xl"
-//         aria-label="User menu"
-//       >
-//         <div className="h-full w-full rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-xs font-semibold text-gray-600 dark:text-gray-300">
-//           U
-//         </div>
-//       </button>
-//     </div>
-//   );
-// }
+      {/* Mobile Menu Button - only show on smaller screens */}
+      <button
+        className={`p-2 rounded-full transition-all duration-500 cubic-bezier(0.4, 0, 0.2, 1) 
+                   hover:bg-white/10 hover:backdrop-blur-xl hover:scale-110 active:scale-95 
+                   hover:shadow-lg hover:shadow-white/10 focus:outline-none focus:ring-2 
+                   focus:ring-white/30 group md:hidden
+                   ${isScrolled ? "block" : "hidden sm:block"}`}
+        aria-label="Menu"
+      >
+        <Menu 
+          className="h-5 w-5 text-white/80 group-hover:text-white 
+                     transition-all duration-500 cubic-bezier(0.4, 0, 0.2, 1) drop-shadow-sm
+                     group-hover:rotate-90" 
+        />
+      </button>
+    </div>
+  );
+}

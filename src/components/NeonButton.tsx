@@ -1,6 +1,7 @@
 "use client";
 
-import { ButtonHTMLAttributes, ReactNode } from "react";
+import { ReactNode } from "react";
+import { motion, HTMLMotionProps } from "framer-motion";
 
 type Variant = "primary" | "secondary" | "danger" | "ghost" | "premium";
 
@@ -10,7 +11,9 @@ export type NeonButtonProps = {
   fullWidth?: boolean;
   glowIntensity?: "low" | "medium" | "high";
   disabled?: boolean;
-} & ButtonHTMLAttributes<HTMLButtonElement>;
+  active?: boolean;
+  className?: string;
+} & Omit<HTMLMotionProps<"button">, "ref">;
 
 export default function NeonButton({
   children,
@@ -18,6 +21,7 @@ export default function NeonButton({
   fullWidth = false,
   glowIntensity = "medium",
   disabled = false,
+  active = false,
   className = "",
   ...props
 }: NeonButtonProps) {
@@ -46,19 +50,17 @@ export default function NeonButton({
     }
   };
 
-  // Base classes for all buttons
-  let baseClasses = "relative rounded-xl px-6 py-3 font-semibold text-sm flex items-center gap-2 justify-center transition-all duration-300 transform overflow-hidden group";
+  // Base classes
+  let baseClasses =
+    "relative rounded-xl px-6 py-3 font-semibold text-sm flex items-center gap-2 justify-center transition-all duration-300 transform overflow-hidden group";
 
-  // Hover effects
-  const hoverEffects = "hover:scale-105 active:scale-95";
-
-  // Focus styles
+  const hoverEffects = disabled ? "" : "hover:scale-105 active:scale-95";
   const focusStyles = "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-900";
 
-  // Variant specific classes
+  // Variant styles
   let variantClasses = "";
   let textGradient = "";
-  
+
   switch (variant) {
     case "primary":
       variantClasses = `bg-gradient-to-br from-cyan-900/40 via-slate-900/80 to-cyan-900/40 border border-cyan-500/50 ${glowLevels[glowIntensity].primary}`;
@@ -82,39 +84,41 @@ export default function NeonButton({
       break;
   }
 
-  // Disabled state
-  const disabledClasses = disabled 
-    ? "opacity-50 cursor-not-allowed grayscale" 
-    : `${hoverEffects} ${focusStyles}`;
-
-  // Full width class
-  const widthClass = fullWidth ? "w-full" : "";
+  const activeClass = active
+    ? "ring-2 ring-cyan-400 shadow-[0_0_30px_rgba(56,189,248,0.8)] animate-pulse"
+    : "";
 
   return (
-    <button
-      className={`${baseClasses} ${variantClasses} ${disabledClasses} ${widthClass} ${className}`}
+    <motion.button
+      whileHover={!disabled ? { scale: 1.05 } : {}}
+      whileTap={!disabled ? { scale: 0.95 } : {}}
       disabled={disabled}
+      className={`${baseClasses} ${variantClasses} ${hoverEffects} ${focusStyles} ${activeClass} ${
+        fullWidth ? "w-full" : ""
+      } ${className}`}
       {...props}
     >
-      {/* Animated background effect */}
+      {/* Shine effect */}
       <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></span>
-      
-      {/* Inner glow effect */}
-      <span className={`absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
-        variant === "primary" ? "bg-cyan-500/10" :
-        variant === "secondary" ? "bg-purple-500/10" :
-        variant === "danger" ? "bg-red-500/10" :
-        variant === "premium" ? "bg-amber-500/10" :
-        "bg-cyan-500/5"
-      }`}></span>
-      
-      {/* Button content */}
+
+      {/* Glow layer */}
+      <span
+        className={`absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
+          variant === "primary"
+            ? "bg-cyan-500/10"
+            : variant === "secondary"
+            ? "bg-purple-500/10"
+            : variant === "danger"
+            ? "bg-red-500/10"
+            : variant === "premium"
+            ? "bg-amber-500/10"
+            : "bg-cyan-500/5"
+        }`}
+      ></span>
+
       <span className={`relative bg-gradient-to-r ${textGradient} bg-clip-text text-transparent flex items-center`}>
         {children}
       </span>
-      
-      {/* Light reflection effect */}
-      <span className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-white/5 to-transparent rounded-t-xl"></span>
-    </button>
+    </motion.button>
   );
 }

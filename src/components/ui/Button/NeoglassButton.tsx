@@ -11,6 +11,7 @@ export interface NeoGlassButtonProps extends React.ButtonHTMLAttributes<HTMLButt
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
   className?: string;
+  active?: boolean;
   children: React.ReactNode;
 }
 

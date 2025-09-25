@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useCallback, useMemo } from "react";
 import { Search } from "lucide-react";
 
@@ -40,20 +39,14 @@ export default function NavbarSearch({
 
   const inputClasses = useMemo(
     () =>
-      `
-      w-full pl-10 pr-4 py-2.5 text-sm font-medium
-      placeholder:text-gray-500 dark:placeholder:text-gray-400
-      bg-white/90 dark:bg-gray-800/90
-      border border-gray-200/60 dark:border-gray-700/60
-      rounded-full backdrop-blur-sm
-      transition-all duration-300 ease-out
-      focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/60
-      dark:focus:ring-blue-400/40 dark:focus:border-blue-400/60
-      hover:shadow-lg hover:bg-white/95 dark:hover:bg-gray-800/95
-      hover:border-gray-300/70 dark:hover:border-gray-600/70
-      text-gray-900 dark:text-gray-100
-      ${isFocused ? "shadow-xl scale-[1.02] bg-white dark:bg-gray-800 ring-2 ring-blue-500/40 dark:ring-blue-400/40" : "shadow-md"}
-      `.replace(/\s+/g, " ").trim(),
+      `w-full pl-10 pr-4 py-2.5 text-sm font-medium
+       placeholder:text-white/60 text-white
+       bg-white/10 border border-white/20 rounded-full backdrop-blur-xl
+       transition-all duration-500 cubic-bezier(0.4, 0, 0.2, 1)
+       focus:outline-none focus:ring-2 focus:ring-white/40 focus:border-white/40
+       hover:shadow-lg hover:bg-white/15 hover:border-white/30 hover:shadow-white/10
+       ${isFocused ? "shadow-xl scale-[1.02] bg-white/20 ring-2 ring-white/40 shadow-white/20" : "shadow-md"}
+       `.replace(/\s+/g, " ").trim(),
     [isFocused]
   );
 
@@ -64,16 +57,19 @@ export default function NavbarSearch({
       }`}
     >
       <div className="relative group">
-        <div className="absolute left-3 top-1/2 -translate-y-1/2 z-10 pointer-events-none transition-all duration-300 ease-out">
+        {/* Search Icon */}
+        <div className="absolute left-3 top-1/2 -translate-y-1/2 z-10 pointer-events-none transition-all duration-500 cubic-bezier(0.4, 0, 0.2, 1)">
           <Search
-            className={`h-4 w-4 transition-all duration-300 ease-out ${
+            className={`h-4 w-4 transition-all duration-500 cubic-bezier(0.4, 0, 0.2, 1) ${
               isFocused
-                ? "text-blue-500 dark:text-blue-400 scale-110"
-                : "text-gray-400 dark:text-gray-500"
+                ? "text-white scale-110 drop-shadow-sm"
+                : "text-white/70"
             }`}
             aria-hidden="true"
           />
         </div>
+
+        {/* Search Input */}
         <input
           type="search"
           placeholder={isScrolled ? "Search..." : "Search components, hooks..."}
@@ -87,9 +83,17 @@ export default function NavbarSearch({
           autoComplete="off"
           spellCheck={false}
         />
+
+        {/* Focus glow effect */}
         {isFocused && (
-          <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500/10 to-purple-500/10 blur-xl -z-10 animate-pulse" />
+          <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-400/20 to-purple-400/20 blur-xl -z-10 animate-pulse duration-2000" />
         )}
+
+        {/* Hover glow effect */}
+        <div className="absolute inset-0 rounded-full bg-gradient-to-r from-white/5 to-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
+        
+        {/* Additional liquid glass effect layers */}
+        <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/5 via-transparent to-white/10 opacity-0 group-hover:opacity-50 transition-opacity duration-700 -z-10" />
       </div>
     </div>
   );

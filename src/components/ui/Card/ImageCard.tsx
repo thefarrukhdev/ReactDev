@@ -3,22 +3,7 @@ import {
   Heart,
   Share2,
   BookOpen,
-  User,
-  MapPin,
-  Mail,
-  Phone,
-  Github,
-  Twitter,
-  Linkedin,
-  TrendingUp,
-  Users,
-  DollarSign,
-  Activity,
-  ArrowUpRight,
-  ExternalLink,
-  UserPlus,
-  MessageCircle
-} from 'lucide-react';
+  ArrowUpRight} from 'lucide-react';
 
 // Utility function for class merging
 const cn = (...classes: (string | undefined | null | false)[]): string => {
