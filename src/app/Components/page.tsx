@@ -5,7 +5,7 @@ import Navbar from "@/components/Navbar/page";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import ComponentPreview from "@/components/componentPreview";
 import { NeoGlassButton } from "@/components/ui/Button/NeoglassButton";
-import { Eye, Code } from "lucide-react";
+import { Eye, Code, Menu } from "lucide-react";
 import { componentsList } from "@/lib/componentsList";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -14,6 +14,7 @@ export default function MainContent() {
   const [searchQuery, setSearchQuery] = useState("");
   const [showPreview, setShowPreview] = useState(true);
   const [showCode, setShowCode] = useState(false);
+  const [isOpen, setIsOpen] = useState(false); // ✅ mobil sidebar boshqaruvi
 
   // 🔎 Filter – useMemo optimizatsiyasi
   const filteredComponents = useMemo(
@@ -40,6 +41,9 @@ export default function MainContent() {
     setSelected(id);
     setShowPreview(true);
     setShowCode(false);
+
+    // ✅ Mobil qurilmada tanlagandan keyin sidebarni yopish
+    setIsOpen(false);
   };
 
   return (
@@ -47,12 +51,38 @@ export default function MainContent() {
       {/* ✅ Liquid Glass Background Blur */}
       <div className="absolute inset-0 backdrop-blur-xl bg-white/5" />
 
+      {/* ✅ Navbar */}
       <Navbar onSearch={handleSearch} />
 
       <div className="flex flex-1 h-full overflow-hidden relative z-10">
+        {/* Hamburger tugmasi - faqat mobil uchun */}
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="md:hidden fixed top-4 left-4 z-[60] p-2 bg-white/10 backdrop-blur-md rounded-lg shadow-md"
+        >
+          <Menu className="w-6 h-6 text-white" />
+        </button>
+
         {/* Sidebar */}
-        <aside className="w-64 min-w-[220px] h-full border-r border-white/10 bg-white/5 backdrop-blur-md shadow-lg overflow-y-auto shrink-0 rounded-tr-2xl">
-          <Sidebar components={filteredComponents} onSelect={handleSelect} />
+        <aside
+          className={`
+            fixed md:static
+            top-0 left-0
+            h-full w-64 max-w-[280px]
+            transform transition-transform duration-300 ease-in-out
+            border-r border-white/10 bg-white/5 backdrop-blur-md shadow-lg
+            overflow-y-auto shrink-0 rounded-tr-2xl
+            z-50
+            ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
+          `}
+        >
+          <Sidebar
+  components={filteredComponents}
+  onSelect={handleSelect}
+  isOpen={isOpen}
+  onClose={() => setIsOpen(false)}
+/>
+
         </aside>
 
         {/* Main Content */}
@@ -125,7 +155,10 @@ export default function MainContent() {
                       transition={{ duration: 0.3 }}
                       className="w-full h-full rounded-2xl bg-black/50 backdrop-blur-md border border-white/10 p-4 shadow-inner"
                     >
-                      <ComponentPreview {...activeComponent} showPreview={showPreview} />
+                      <ComponentPreview
+                        {...activeComponent}
+                        showPreview={showPreview}
+                      />
                     </motion.div>
                   )}
                 </motion.div>

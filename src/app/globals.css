@@ -139,20 +139,64 @@
   animation: bounce 1s ease-in-out infinite;
 }
 
-
-
 /* component page niki */
 
 /* globals.css */
 .animate-gradient-slow {
-  background: linear-gradient(120deg, rgba(30,16,53,0.5), rgba(4,10,25,0.5), rgba(16,5,36,0.5));
+  background: linear-gradient(
+    120deg,
+    rgba(30, 16, 53, 0.5),
+    rgba(4, 10, 25, 0.5),
+    rgba(16, 5, 36, 0.5)
+  );
   background-size: 400% 400%;
   animation: gradientShift 18s ease-in-out infinite;
   filter: blur(12px);
 }
 
 @keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* navbardagi css animatsiyalar */
+
+@keyframes liquid-gradient {
+  0%,
+  100% {
+    background-position: 0% 50%;
+    transform: scale(1);
+  }
+  25% {
+    background-position: 100% 50%;
+    transform: scale(1.01);
+  }
+  50% {
+    background-position: 100% 100%;
+    transform: scale(1);
+  }
+  75% {
+    background-position: 0% 100%;
+    transform: scale(1.01);
+  }
+}
+
+@keyframes liquid-flow {
+  0%,
+  100% {
+    background-position: 0% 0%;
+  }
+  33% {
+    background-position: 100% 100%;
+  }
+  66% {
+    background-position: 0% 100%;
+  }
 }
