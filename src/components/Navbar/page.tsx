@@ -22,7 +22,7 @@ export default function Navbar({ onSearch, className = "" }: NavbarProps) {
 
   const navbarClasses = useMemo(() => {
     return `
-      fixed top-4 left-1/2 transform -translate-x-1/2 z-50
+      fixed top-0 left-1/2 transform -translate-x-1/2 z-50
       transition-all duration-700 cubic-bezier(0.4, 0, 0.2, 1)
       ${isScrolled
         ? "w-11/12 sm:w-4/5 md:w-3/5 lg:w-2/3 rounded-2xl scale-98 opacity-95"
