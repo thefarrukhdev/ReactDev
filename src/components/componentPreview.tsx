@@ -1,17 +1,17 @@
 "use client";
 
 import { useState, ReactNode } from "react";
-import { Copy, Eye, EyeOff, Code, Terminal, Zap, Sparkles } from "lucide-react";
-import { ForwardRefExoticComponent, RefAttributes } from "react";
+import { Copy, Eye, EyeOff, Code, Terminal, Zap, Sparkles, LucideIcon } from "lucide-react";
 
 type SectionId = "install" | "usage" | "code";
 
 type Section = {
   id: SectionId;
   label: string;
-  icon: any;
+  icon: LucideIcon;   // 🔥 any o‘rniga LucideIcon
   content: string;
 };
+
 
 type ComponentPreviewProps = {
   name: string;
@@ -214,7 +214,7 @@ export default function ComponentPreview({
                 </>
               ) : (
                 <>
-                  <Eye className="w-5 h-5" /> Ko'rsatish
+                  <Eye className="w-5 h-5" /> Ko&apos;rsatish
                 </>
               )}
             </LiquidButton>
@@ -277,45 +277,44 @@ export default function ComponentPreview({
 
       {/* SECTION CONTENT */}
       <div className="relative space-y-8">
-  {sections.map(
-    ({ id, label, content }) =>
-      activeTab === id && (
-        <div key={id} className="relative animate-fadeIn">
-          <div className="relative overflow-hidden rounded-3xl border border-white/20 backdrop-blur-3xl shadow-2xl group">
-            {/* Liquid background */}
-            <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/5 via-teal-500/10 to-cyan-600/5 group-hover:from-emerald-400/8 group-hover:via-teal-500/15 group-hover:to-cyan-600/8 transition-all duration-1000" />
-            
-            {/* HEADER + COPY BUTTON */}
-            <div className="flex items-center justify-between">
-              <WindowHeader title={label} />
-              <LiquidButton
-                onClick={() => handleCopy(content)}
-                variant="secondary"
-                className="m-3 flex items-center gap-2 px-4 py-2 text-sm z-20"
-              >
-                <Copy className="w-4 h-4" /> Copy
-              </LiquidButton>
-            </div>
+        {sections.map(
+          ({ id, label, content }) =>
+            activeTab === id && (
+              <div key={id} className="relative animate-fadeIn">
+                <div className="relative overflow-hidden rounded-3xl border border-white/20 backdrop-blur-3xl shadow-2xl group">
+                  {/* Liquid background */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/5 via-teal-500/10 to-cyan-600/5 group-hover:from-emerald-400/8 group-hover:via-teal-500/15 group-hover:to-cyan-600/8 transition-all duration-1000" />
 
-            {/* CODE CONTENT */}
-            <div className="relative">
-              <pre className="relative z-10 p-8 overflow-x-auto text-sm leading-relaxed text-emerald-200 font-mono">
-                <code>{content}</code>
-              </pre>
-              
-              {/* Floating code particles */}
-              <div className="absolute top-6 right-20 w-1 h-1 bg-emerald-400 rounded-full animate-pulse opacity-60" />
-              <div
-                className="absolute bottom-8 right-16 w-1 h-1 bg-teal-400 rounded-full animate-pulse opacity-40"
-                style={{ animationDelay: "1s" }}
-              />
-            </div>
-          </div>
-        </div>
-      )
-  )}
-</div>
+                  {/* HEADER + COPY BUTTON */}
+                  <div className="flex items-center justify-between">
+                    <WindowHeader title={label} />
+                    <LiquidButton
+                      onClick={() => handleCopy(content)}
+                      variant="secondary"
+                      className="m-3 flex items-center gap-2 px-4 py-2 text-sm z-20"
+                    >
+                      <Copy className="w-4 h-4" /> Copy
+                    </LiquidButton>
+                  </div>
 
+                  {/* CODE CONTENT */}
+                  <div className="relative">
+                    <pre className="relative z-10 p-8 overflow-x-auto text-sm leading-relaxed text-emerald-200 font-mono">
+                      <code>{content}</code>
+                    </pre>
+
+                    {/* Floating code particles */}
+                    <div className="absolute top-6 right-20 w-1 h-1 bg-emerald-400 rounded-full animate-pulse opacity-60" />
+                    <div
+                      className="absolute bottom-8 right-16 w-1 h-1 bg-teal-400 rounded-full animate-pulse opacity-40"
+                      style={{ animationDelay: "1s" }}
+                    />
+                  </div>
+                </div>
+              </div>
+            )
+        )}
+      </div>
 
       {/* LIQUID SNACKBAR */}
       {copied && (
@@ -330,33 +329,6 @@ export default function ComponentPreview({
           </div>
         </div>
       )}
-
-      <style jsx>{`
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes float {
-          0%,
-          100% {
-            transform: translateY(0px) rotate(0deg);
-          }
-          50% {
-            transform: translateY(-10px) rotate(0.5deg);
-          }
-        }
-
-        .animate-fadeIn {
-          animation: fadeIn 0.8s ease-out forwards;
-        }
-      `}</style>
     </div>
   );
 }

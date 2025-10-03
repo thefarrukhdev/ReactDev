@@ -5,7 +5,7 @@ import Navbar from "@/components/Navbar/page";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import ComponentPreview from "@/components/componentPreview";
 import { NeoGlassButton } from "@/components/ui/Button/NeoglassButton";
-import { Eye, Code, Menu } from "lucide-react";
+import { Eye, Code, Layers } from "lucide-react";
 import { componentsList } from "@/lib/componentsList";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -41,9 +41,7 @@ export default function MainContent() {
     setSelected(id);
     setShowPreview(true);
     setShowCode(false);
-
-    // ✅ Mobil qurilmada tanlagandan keyin sidebarni yopish
-    setIsOpen(false);
+    setIsOpen(false); // ✅ Mobil qurilmada tanlagandan keyin sidebarni yopish
   };
 
   return (
@@ -55,37 +53,29 @@ export default function MainContent() {
       <Navbar onSearch={handleSearch} />
 
       <div className="flex flex-1 h-full overflow-hidden relative z-10">
-        {/* Hamburger tugmasi - faqat mobil uchun */}
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden fixed top-4 left-4 z-[60] p-2 bg-white/10 backdrop-blur-md rounded-lg shadow-md"
-        >
-          <Menu className="w-6 h-6 text-white" />
-        </button>
+        {/* ✅ Hamburger tugmasi - faqat mobil va faqat sidebar yopiq bo‘lsa */}
+        {!isOpen && (
+          <button
+            onClick={() => setIsOpen(true)}
+            className="md:hidden fixed left-4 top-[72px] z-[60] p-2 
+                       bg-white/10 backdrop-blur-lg rounded-xl shadow-lg
+                       hover:bg-white/20 hover:scale-110 active:scale-95 
+                       transition-all duration-300"
+            aria-label="Open Sidebar"
+          >
+            <Layers className="w-6 h-6 text-white" />
+          </button>
+        )}
 
-        {/* Sidebar */}
-        <aside
-          className={`
-            fixed md:static
-            top-0 left-0
-            h-full w-64 max-w-[280px]
-            transform transition-transform duration-300 ease-in-out
-            border-r border-white/10 bg-white/5 backdrop-blur-md shadow-lg
-            overflow-y-auto shrink-0 rounded-tr-2xl
-            z-50
-            ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
-          `}
-        >
-          <Sidebar
-  components={filteredComponents}
-  onSelect={handleSelect}
-  isOpen={isOpen}
-  onClose={() => setIsOpen(false)}
-/>
+        {/* ✅ Sidebar */}
+        <Sidebar
+          components={filteredComponents}
+          onSelect={handleSelect}
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)} // ✅ SidebarHeader yopish tugmasi uchun
+        />
 
-        </aside>
-
-        {/* Main Content */}
+        {/* ✅ Main Content */}
         <main className="flex-1 h-full overflow-y-auto w-full box-border relative p-4">
           {!activeComponent ? (
             <div className="flex flex-col items-center justify-center h-full w-full text-center text-gray-400">
@@ -103,11 +93,12 @@ export default function MainContent() {
                 transition={{ duration: 0.3, ease: "easeOut" }}
                 className="flex flex-col space-y-6 w-full h-full"
               >
+                {/* ✅ Component nomi */}
                 <h1 className="text-3xl font-bold bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-400 bg-clip-text text-transparent text-center drop-shadow-md">
                   {activeComponent.name}
                 </h1>
 
-                {/* Toggle Buttons */}
+                {/* ✅ Toggle Buttons */}
                 <div className="flex gap-3 justify-center mt-2">
                   <NeoGlassButton
                     active={showPreview}
@@ -130,7 +121,7 @@ export default function MainContent() {
                   </NeoGlassButton>
                 </div>
 
-                {/* Content Preview / Code */}
+                {/* ✅ Content Preview / Code */}
                 <motion.div
                   className="flex-1 flex items-center justify-center mt-4"
                   layout
@@ -141,7 +132,8 @@ export default function MainContent() {
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.95 }}
                       transition={{ duration: 0.3 }}
-                      className="w-full max-w-full h-full p-6 rounded-2xl bg-white/5 backdrop-blur-lg border border-white/10 shadow-2xl"
+                      className="w-full max-w-full h-full p-6 rounded-2xl 
+                                 bg-white/5 backdrop-blur-lg border border-white/10 shadow-2xl"
                     >
                       {activeComponent.element}
                     </motion.div>
@@ -153,7 +145,8 @@ export default function MainContent() {
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.3 }}
-                      className="w-full h-full rounded-2xl bg-black/50 backdrop-blur-md border border-white/10 p-4 shadow-inner"
+                      className="w-full h-full rounded-2xl bg-black/50 
+                                 backdrop-blur-md border border-white/10 p-4 shadow-inner"
                     >
                       <ComponentPreview
                         {...activeComponent}

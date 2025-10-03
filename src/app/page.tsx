@@ -1,7 +1,7 @@
 "use client";
 
 import GoToMainButton from "@/components/GoToMainButton";
-import LightRays from "@/components/Background";
+// import LightRays from "@/components/Background";
 
 export default function HomePage() {
   return (
@@ -9,7 +9,7 @@ export default function HomePage() {
       {/* Background (LightRays) */}
       <div className="fixed inset-0 z-0">
         <div className="w-full h-full">
-          <LightRays
+          {/* <LightRays
             raysOrigin="top-center"
             raysColor="#015E4F"
             raysSpeed={1.5}
@@ -20,7 +20,7 @@ export default function HomePage() {
             noiseAmount={0.1}
             distortion={0.05}
             className="custom-rays"
-          />
+          /> */}
         </div>
         <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
       </div>

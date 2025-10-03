@@ -51,7 +51,7 @@ export default function NeonButton({
   };
 
   // Base classes
-  let baseClasses =
+  const baseClasses =
     "relative rounded-xl px-6 py-3 font-semibold text-sm flex items-center gap-2 justify-center transition-all duration-300 transform overflow-hidden group";
 
   const hoverEffects = disabled ? "" : "hover:scale-105 active:scale-95";
