@@ -15,7 +15,7 @@ type TabProps = {
             key={t.id}
             onClick={() => onChange(t.id)}
             className={`px-3 py-2 rounded-md ${
-              active === t.id ? "bg-cyan-500 text-white" : "bg-transparent hover:bg-slate-700"
+              active === t.id ? "bg-red-500 text-white" : "bg-transparent hover:bg-slate-700"
             }`}
           >
             {t.icon} {t.label}
