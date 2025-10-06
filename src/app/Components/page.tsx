@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react";
 import Navbar from "@/components/Navbar/page";
 import Sidebar from "@/components/Sidebar/Sidebar";
-import ComponentPreview from "@/components/componentPreview";
+import ComponentPreview from "@/components/ComponentPreview/componentPreview";
 import { NeoGlassButton } from "@/components/ui/Button/NeoglassButton";
 import { Eye, Code, Layers } from "lucide-react";
 import { componentsList } from "@/lib/componentsList";
