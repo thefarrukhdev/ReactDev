@@ -21,31 +21,6 @@ export default function Navbar({ onSearch, className = "" }: NavbarProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navbarClasses = useMemo(() => {
-    return `
-      fixed top-0 left-1/2 transform -translate-x-1/2 z-50
-      transition-all duration-700 cubic-bezier(0.4, 0, 0.2, 1)
-      ${isScrolled
-        ? "w-11/12 sm:w-4/5 md:w-3/5 lg:w-2/3 rounded-2xl scale-98 opacity-95"
-        : "w-full rounded-none scale-100 opacity-100"
-      }
-    `.replace(/\s+/g, " ").trim();
-  }, [isScrolled]);
-
-  const glassStyles = useMemo(() => {
-    return `
-      backdrop-blur-2xl bg-gradient-to-r from-white/10 via-white/5 to-white/10
-      border border-white/20 shadow-2xl shadow-black/10
-      before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-br 
-      before:from-white/20 before:via-transparent before:to-purple-500/10 
-      before:opacity-50 before:pointer-events-none
-      after:absolute after:inset-0 after:rounded-2xl after:bg-gradient-to-tl
-      after:from-blue-500/5 after:via-transparent after:to-white/5
-      after:pointer-events-none
-      ${isScrolled ? "before:opacity-70 after:opacity-60" : "before:opacity-40 after:opacity-30"}
-    `.replace(/\s+/g, " ").trim();
-  }, [isScrolled]);
-
   const navbarClasses = useMemo(() => getNavbarClasses(isScrolled), [isScrolled]);
   const glassStyles = useMemo(() => getGlassStyles(isScrolled), [isScrolled]);
   const contentPadding = isScrolled ? "px-6 sm:px-8" : "px-4 sm:px-6 lg:px-8";
