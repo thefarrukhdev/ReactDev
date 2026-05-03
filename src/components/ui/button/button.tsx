@@ -1,5 +1,6 @@
 import React from 'react';
 import { Loader2 } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 export type NeoVariant = "primary" | "secondary" | "danger" | "ghost";
 export type NeoSize = "sm" | "md" | "lg";
@@ -14,10 +15,6 @@ export interface NeoGlassButtonProps extends React.ButtonHTMLAttributes<HTMLButt
   active?: boolean;
   children: React.ReactNode;
 }
-
-const cn = (...classes: (string | undefined | null | false)[]): string => {
-  return classes.filter(Boolean).join(' ');
-};
 
 export const NeoGlassButton: React.FC<NeoGlassButtonProps> = ({
   variant = "primary",

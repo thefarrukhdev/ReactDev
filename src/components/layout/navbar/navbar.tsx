@@ -3,7 +3,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import Logo from "./NavbarLogo";
 import SearchInput from "./NavbarSearch";
 import NavbarActions from "./NavbarActions";
-import { getNavbarClasses, getGlassStyles } from "@/components/NavbarUtils";
+import { getNavbarClasses, getGlassStyles } from "./NavbarUtils";
 
 interface NavbarProps {
   onSearch: (query: string, enterPressed?: boolean) => void;

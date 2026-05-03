@@ -1,12 +1,12 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import Navbar from "@/components/Navbar/page";
-import Sidebar from "@/components/Sidebar/Sidebar";
-import ComponentPreview from "@/components/ComponentPreview/componentPreview";
-import { NeoGlassButton } from "@/components/ui/Button/NeoglassButton";
+import Navbar from "@/components/layout/navbar";
+import { Sidebar } from "@/components/layout/sidebar";
+import ComponentPreview from "@/components/features/component-preview/component-preview";
+import { NeoGlassButton } from "@/components/ui/button";
 import { Eye, Code, Layers } from "lucide-react";
-import { componentsList } from "@/lib/componentsList";
+import { componentsList } from "@/lib/constants";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function MainContent() {

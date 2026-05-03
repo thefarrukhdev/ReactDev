@@ -1,6 +1,6 @@
 "use client";
 
-import GoToMainButton from "@/components/GoToMainButton";
+import GoToMainButton from "@/components/shared/buttons/GoToMainButton";
 // import LightRays from "@/components/Background";
 
 export default function HomePage() {

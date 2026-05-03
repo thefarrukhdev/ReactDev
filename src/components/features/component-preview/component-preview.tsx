@@ -2,8 +2,8 @@
 
 import { useState, useMemo } from "react";
 import { Copy, Eye, EyeOff, Code, Terminal, Zap, Sparkles } from "lucide-react";
-import LiquidButton from "@/components/LiquidButton";
-import WindowHeader from "@/components/WindowHeader";
+import LiquidButton from "@/components/shared/buttons/LiquidButton";
+import WindowHeader from "@/components/shared/window-header/window-header";
 import { Section, SectionId, ComponentPreviewProps } from "./types";
 
 export default function ComponentPreview({
