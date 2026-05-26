@@ -10,3 +10,7 @@
 <!-- Section 2026-05-19T14:50:22 +0500 -->
 ### Theme Provider Architecture
 - Dynamic CSS variable injection with zero-runtime CSS support.
+
+<!-- Section 2026-05-26T15:30:10 +0500 -->
+### Render Optimization Guidelines
+- Anti-patterns in dependency arrays and referential stability checks.
