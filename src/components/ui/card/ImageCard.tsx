@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { Heart, Share2, BookOpen, ArrowUpRight } from "lucide-react";
 
 // Class merge helper
@@ -79,11 +80,12 @@ export const ImageCard: React.FC<ImageCardProps> = ({
 
       {/* Image Section */}
       <div className="relative overflow-hidden">
-        <img
+        <Image
           src={data.image}
           alt={data.title}
+          width={400}
+          height={300}
           className="w-full h-48 sm:h-56 md:h-64 object-cover transition-transform duration-700 group-hover:scale-110"
-          loading="lazy"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
 

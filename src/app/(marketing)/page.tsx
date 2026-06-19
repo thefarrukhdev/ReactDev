@@ -1,43 +1,27 @@
-"use client";
-
 import GoToMainButton from "@/components/shared/buttons/GoToMainButton";
-// import LightRays from "@/components/Background";
 
 export default function HomePage() {
   return (
     <div className="relative min-h-screen max-w-full overflow-hidden">
-      {/* Background (LightRays) */}
+      {/* Background */}
       <div className="fixed inset-0 z-0">
-        <div className="w-full h-full">
-          {/* <LightRays
-            raysOrigin="top-center"
-            raysColor="#015E4F"
-            raysSpeed={1.5}
-            lightSpread={0.8}
-            rayLength={1.2}
-            followMouse={true}
-            mouseInfluence={0.1}
-            noiseAmount={0.1}
-            distortion={0.05}
-            className="custom-rays"
-          /> */}
-        </div>
+        <div className="w-full h-full bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950" />
         <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
       </div>
 
       {/* Content */}
-      <main className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
+      <main className="relative z-10 flex flex-col items-center justify-center h-screen text-center text-white px-4">
         <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent">
           Discover Amazing React Components
         </h1>
 
         <p className="text-lg md:text-xl text-gray-300 mt-4 max-w-xl">
-          A curated collection of beautiful, reusable, and production-ready components for your next project.
+          A curated collection of beautiful, reusable, and production-ready
+          components for your next project.
         </p>
 
         <GoToMainButton />
       </main>
-
     </div>
   );
 }

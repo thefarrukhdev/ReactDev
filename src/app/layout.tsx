@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   title: "Component Library",
   description: "Custom component library with Next.js",
   icons: {
-    icon: "/ReactLogo.png", // ✅ To‘g‘ri format
+    icon: "/ReactLogo.png",
   },
 };
 
@@ -30,9 +30,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 dark:bg-neutral-900 h-full overflow-hidden`}
       >
-        {/* Root container */}
         <div className="flex flex-col h-full w-full">
-          {/* Children (Layouts & Pages) */}
           {children}
         </div>
       </body>

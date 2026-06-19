@@ -1,6 +1,6 @@
 // SidebarItem.tsx - Liquid Glass Items
 import { ChevronRight, Code } from "lucide-react";
-import { ComponentItem } from "./Sidebar";
+import { ComponentItem } from "@/types";
 
 interface SidebarItemProps {
   item: ComponentItem;
@@ -22,11 +22,12 @@ export default function SidebarItem({
   onMouseLeave 
 }: SidebarItemProps) {
   return (
-    <li>
+    <li role="option" aria-selected={isActive}>
       <button
         onClick={onClick}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
+        aria-label={`Select ${item.name} component`}
         className={`group relative w-full text-left p-4 rounded-2xl transition-all duration-500 cubic-bezier(0.4, 0, 0.2, 1) 
           transform hover:scale-[1.02] hover:-translate-y-1 overflow-hidden
           ${isActive

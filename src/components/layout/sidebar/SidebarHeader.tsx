@@ -1,11 +1,11 @@
 // SidebarHeader.tsx - Liquid Glass Header
 "use client";
 
-import { Layers, X } from "lucide-react";
+import { Layers } from "lucide-react";
 
 interface SidebarHeaderProps {
   componentsCount: number;
-  onClose?: () => void; // ✅ Mobil uchun yopish tugmasi callback
+  onClose?: () => void;
 }
 
 export default function SidebarHeader({
@@ -32,7 +32,7 @@ export default function SidebarHeader({
         }}
       />
 
-      {/* ✅ Close Button - faqat mobil */}
+      {/* Close Button (mobile only) */}
       {onClose && (
         <button
           onClick={onClose}

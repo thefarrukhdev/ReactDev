@@ -1,22 +1,16 @@
 "use client";
 
 import { useState } from "react";
+import { ComponentItem } from "@/types";
 import SidebarHeader from "./SidebarHeader";
 import SidebarItem from "./SidebarItem";
 import SidebarEmpty from "./SidebarEmpty";
 
-export type ComponentItem = {
-  id: string;
-  name: string;
-  element: React.ReactNode;
-  code: string;
-};
-
 type SidebarProps = {
   components: ComponentItem[];
   onSelect: (id: string) => void;
-  isOpen: boolean;   // mobil uchun sidebar holati
-  onClose: () => void; // hamburger bosilganda yopish
+  isOpen: boolean;
+  onClose: () => void;
 };
 
 export default function Sidebar({ components, onSelect, isOpen, onClose }: SidebarProps) {
@@ -26,16 +20,19 @@ export default function Sidebar({ components, onSelect, isOpen, onClose }: Sideb
   const handleSelect = (id: string) => {
     setActive(id);
     onSelect(id);
-    onClose(); // mobil qurilmada tanlagandan keyin yopish
+    onClose();
   };
 
   return (
     <aside
+      role="navigation"
+      aria-label="Component list"
       className={`
         fixed md:static left-0 
         top-[64px] md:top-0
         z-50 h-[calc(100%-64px)] md:h-full
-        w-64 max-w-[280px] flex flex-col overflow-hidden rounded-4xl
+        w-64 max-w-[280px] flex-shrink-0 flex flex-col overflow-hidden
+        rounded-2xl md:rounded-none
         transform transition-transform duration-300 ease-in-out
         ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
       `}
@@ -86,7 +83,7 @@ export default function Sidebar({ components, onSelect, isOpen, onClose }: Sideb
           {components.length === 0 ? (
             <SidebarEmpty />
           ) : (
-            <ul className="space-y-2">
+            <ul className="space-y-2" role="listbox" aria-label="Available components">
               {components.map((item, index) => (
                 <SidebarItem
                   key={item.id}

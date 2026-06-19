@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import { Copy, Eye, EyeOff, Code, Terminal, Zap, Sparkles } from "lucide-react";
 import LiquidButton from "@/components/shared/buttons/LiquidButton";
 import WindowHeader from "@/components/shared/window-header/window-header";
+import { useCopyToClipboard } from "@/lib/hooks";
 import { Section, SectionId, ComponentPreviewProps } from "./types";
 
 export default function ComponentPreview({
@@ -16,7 +17,7 @@ export default function ComponentPreview({
 }: ComponentPreviewProps) {
   const [previewVisible, setPreviewVisible] = useState(showPreview);
   const [activeTab, setActiveTab] = useState<SectionId>("code");
-  const [copied, setCopied] = useState(false);
+  const { copied, copyToClipboard } = useCopyToClipboard();
 
   const sections = useMemo(
     () =>
@@ -28,15 +29,7 @@ export default function ComponentPreview({
     [install, usage, code]
   );
 
-  const handleCopy = async (text: string) => {
-    try {
-      await navigator.clipboard.writeText(text);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2500);
-    } catch {
-      console.error("Copy failed");
-    }
-  };
+  const handleCopy = copyToClipboard;
 
   return (
     <div className="w-full text-white space-y-8 relative">
@@ -65,11 +58,11 @@ export default function ComponentPreview({
             >
               {previewVisible ? (
                 <>
-                  <EyeOff className="w-5 h-5" /> Yashirish
+                  <EyeOff className="w-5 h-5" /> Hide
                 </>
               ) : (
                 <>
-                  <Eye className="w-5 h-5" /> Ko&apos;rsatish
+                  <Eye className="w-5 h-5" /> Show
                 </>
               )}
             </LiquidButton>

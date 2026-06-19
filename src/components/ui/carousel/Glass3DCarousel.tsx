@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import NextImage from "next/image";
 import { ChevronLeft, ChevronRight, Play, Pause } from "lucide-react";
 import { sampleCards } from "@/data/sampleCards";
 
@@ -88,7 +89,7 @@ export const Glass3DCarousel: React.FC<Glass3DCarouselProps> = ({
       pointerDeltaRef.current = ev.clientX - pointerStartRef.current;
     };
 
-    const onPointerUp = (ev: PointerEvent) => {
+    const onPointerUp = () => {
       if (!isPointerDownRef.current) return;
       isPointerDownRef.current = false;
 
@@ -114,7 +115,7 @@ export const Glass3DCarousel: React.FC<Glass3DCarouselProps> = ({
       pointerDeltaRef.current = 0;
 
       // capture pointer so move/up are delivered
-      try { (ev.target as Element).setPointerCapture(ev.pointerId); } catch (e) {}
+      try { (ev.target as Element).setPointerCapture(ev.pointerId); } catch { /* noop */ }
     };
 
     container.addEventListener("pointerdown", onPointerDown);
@@ -303,12 +304,12 @@ export const Glass3DCarousel: React.FC<Glass3DCarouselProps> = ({
                     )}
 
                     {card.image && (
-                      <div className="mt-3 rounded-xl overflow-hidden flex-shrink-0">
-                        <img
+                      <div className="mt-3 rounded-xl overflow-hidden flex-shrink-0 relative">
+                        <NextImage
                           src={card.image}
                           alt={card.title}
-                          loading="lazy"
-                          decoding="async"
+                          width={400}
+                          height={300}
                           className="w-full h-48 md:h-56 object-cover transition-transform duration-500 group-hover:scale-105"
                         />
                         <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/40 to-transparent" />

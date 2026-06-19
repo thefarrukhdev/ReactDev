@@ -25,6 +25,7 @@ export const NeoGlassButton: React.FC<NeoGlassButtonProps> = ({
   className,
   children,
   disabled,
+  active = false,
   ...props
 }) => {
   const variantStyles = {
@@ -57,6 +58,7 @@ export const NeoGlassButton: React.FC<NeoGlassButtonProps> = ({
         "after:absolute after:inset-0 after:rounded-xl after:shadow-inner after:pointer-events-none",
         variantStyles[variant],
         sizeStyles[size],
+        active && "ring-2 ring-cyan-400/70 ring-offset-1 ring-offset-transparent shadow-cyan-400/30",
         (disabled || loading) && "opacity-60 cursor-not-allowed hover:scale-100 active:scale-100",
         className
       )}

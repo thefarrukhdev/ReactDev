@@ -60,6 +60,7 @@ src/
 │   │
 │   └── shared/                  # Shared utility components
 │       ├── buttons/            # Utility buttons
+│       ├── background/         # Background component
 │       └── window-header/      # Window header component
 │
 ├── lib/
@@ -92,7 +93,6 @@ src/
 - **Language**: [TypeScript](https://www.typescriptlang.org/)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
 - **Animations**: [Framer Motion](https://www.framer.com/motion/)
-- **3D Graphics**: [Three.js](https://threejs.org/) + [React Three Fiber](https://docs.pmnd.rs/react-three-fiber)
 - **Icons**: [Lucide React](https://lucide.dev/)
 - **Code Highlighting**: [Prism React Renderer](https://github.com/FormidableLabs/prism-react-renderer)
 
@@ -163,9 +163,7 @@ This project is licensed under the MIT License.
 
 ## 📧 Contact
 
-Your Name - [@yourusername](https://twitter.com/yourusername)
-
-Project Link: [https://github.com/yourusername/your-repo](https://github.com/yourusername/your-repo)
+Jumayev Farrukh
 
 ---
 
