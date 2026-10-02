@@ -1,5 +1,6 @@
 import React from "react";
-import { Menu, Settings, User } from "lucide-react";
+import Link from "next/link";
+import { Menu, PlusCircle, User } from "lucide-react";
 
 interface NavbarActionsProps {
   isScrolled: boolean;
@@ -8,19 +9,19 @@ interface NavbarActionsProps {
 export default function NavbarActions({ isScrolled }: NavbarActionsProps) {
   return (
     <div className="flex items-center space-x-2 min-w-0 flex-shrink-0">
-      {/* Settings Button */}
-      <button
-        className="p-2 rounded-full transition-all duration-500 cubic-bezier(0.4, 0, 0.2, 1) 
-                   hover:bg-white/10 hover:backdrop-blur-xl hover:scale-110 active:scale-95 
-                   hover:shadow-lg hover:shadow-white/10 focus:outline-none focus:ring-2 
-                   focus:ring-white/30 group"
-        aria-label="Settings"
-      >
-        <Settings 
-          className="h-5 w-5 text-white/80 group-hover:text-white group-hover:rotate-90 
-                     transition-all duration-500 cubic-bezier(0.4, 0, 0.2, 1) drop-shadow-sm" 
-        />
-      </button>
+      {/* Studio / Admin Button */}
+      <Link href="/admin">
+        <button
+          className="flex items-center gap-2 px-3 py-1.5 rounded-full transition-all duration-300 
+                     bg-white/5 hover:bg-white/10 hover:backdrop-blur-xl hover:scale-105 active:scale-95 
+                     hover:shadow-lg hover:shadow-white/10 border border-white/10 focus:outline-none focus:ring-2 
+                     focus:ring-white/30 group"
+          aria-label="Component Studio"
+        >
+          <PlusCircle className="h-4 w-4 text-purple-400 group-hover:text-purple-300 transition-colors" />
+          <span className="text-sm font-medium text-white/80 group-hover:text-white transition-colors">Studio</span>
+        </button>
+      </Link>
 
       {/* User Profile Button */}
       <button
