@@ -28,62 +28,22 @@ export default function Sidebar({ components, onSelect, isOpen, onClose }: Sideb
       role="navigation"
       aria-label="Component list"
       className={`
-        fixed md:static left-0 
-        top-[64px] md:top-0
-        z-50 h-[calc(100%-64px)] md:h-full
-        w-64 max-w-[280px] flex-shrink-0 flex flex-col overflow-hidden
-        rounded-2xl md:rounded-none
+        fixed md:sticky md:top-14 left-0 
+        z-40 h-[calc(100vh-3.5rem)]
+        w-full md:w-64 flex-shrink-0 flex flex-col
+        border-r border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60
         transform transition-transform duration-300 ease-in-out
         ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
       `}
     >
-      {/* Qoraytirilgan va kuchliroq blur */}
-      <div
-        className="absolute inset-0 backdrop-blur-3xl bg-black/40 border-r border-white/20 shadow-2xl shadow-black/20"
-        style={{
-          background: `
-            linear-gradient(135deg, 
-              rgba(0,0,0,0.4) 0%, 
-              rgba(0,0,0,0.35) 25%,
-              rgba(88,28,135,0.25) 50%,
-              rgba(29,78,216,0.25) 75%,
-              rgba(0,0,0,0.4) 100%
-            )
-          `,
-          animation: "liquid-shimmer 10s ease-in-out infinite",
-        }}
-      />
-
-      {/* Rangli gradient overlay biroz kuchaytirildi */}
-      <div
-        className="absolute inset-0 opacity-40"
-        style={{
-          background: `
-            linear-gradient(45deg, 
-              rgba(59,130,246,0.15) 0%, 
-              rgba(168,85,247,0.15) 25%,
-              rgba(236,72,153,0.15) 50%,
-              rgba(168,85,247,0.15) 75%,
-              rgba(59,130,246,0.15) 100%
-            )
-          `,
-          animation: "liquid-shimmer 15s ease-in-out infinite reverse",
-        }}
-      />
-
-      {/* Ko‘p qatlamli shaffoflik */}
-      <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-white/10 pointer-events-none" />
-      <div className="absolute inset-0 bg-gradient-to-tl from-blue-500/10 via-transparent to-purple-500/10 pointer-events-none" />
-
-      {/* Kontent */}
       <div className="relative z-10 h-full flex flex-col">
         <SidebarHeader componentsCount={components.length} onClose={onClose} />
 
-        <div className="flex-1 p-4 overflow-y-auto custom-scrollbar">
+        <div className="flex-1 py-4 overflow-y-auto custom-scrollbar">
           {components.length === 0 ? (
             <SidebarEmpty />
           ) : (
-            <ul className="space-y-2" role="listbox" aria-label="Available components">
+            <ul className="space-y-1 px-3" role="listbox" aria-label="Available components">
               {components.map((item, index) => (
                 <SidebarItem
                   key={item.id}
@@ -100,25 +60,6 @@ export default function Sidebar({ components, onSelect, isOpen, onClose }: Sideb
           )}
         </div>
       </div>
-
-      {/* Custom scrollbar */}
-      <style jsx global>{`
-        .custom-scrollbar::-webkit-scrollbar {
-          width: 6px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-          background: rgba(255, 255, 255, 0.1);
-          border-radius: 3px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: rgba(255, 255, 255, 0.4);
-          border-radius: 3px;
-          transition: background 0.3s ease;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: rgba(255, 255, 255, 0.6);
-        }
-      `}</style>
     </aside>
   );
 }

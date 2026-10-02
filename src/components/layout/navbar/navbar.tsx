@@ -27,60 +27,28 @@ export default function Navbar({ onSearch, className = "" }: NavbarProps) {
 
   return (
     <nav
-      className={`${navbarClasses} ${glassStyles} ${className} relative overflow-hidden`}
+      className={`sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 ${className}`}
       role="navigation"
       aria-label="Main navigation"
-      style={{
-        background: `
-          linear-gradient(135deg, 
-            rgba(255,255,255,0.1) 0%, 
-            rgba(255,255,255,0.05) 25%,
-            rgba(168,85,247,0.05) 50%,
-            rgba(59,130,246,0.05) 75%,
-            rgba(255,255,255,0.1) 100%
-          )
-        `,
-        // animation: "liquid-gradient 8s ease-in-out infinite",
-      }}
     >
-      {/* Animated liquid gradient background */}
       <div
-        className="absolute inset-0 opacity-30"
-        style={{
-          background: `
-            linear-gradient(45deg, 
-              rgba(59,130,246,0.1) 0%, 
-              rgba(168,85,247,0.1) 25%,
-              rgba(236,72,153,0.1) 50%,
-              rgba(168,85,247,0.1) 75%,
-              rgba(59,130,246,0.1) 100%
-            )
-          `,
-          animation: "liquid-flow 12s ease-in-out infinite",
-        }}
-      />
-
-      <div
-        className={`relative flex items-center justify-between h-16 transition-all duration-700 cubic-bezier(0.4, 0, 0.2, 1) ${contentPadding}`}
+        className={`relative flex items-center justify-between h-14 ${contentPadding}`}
       >
-        <Logo isScrolled={isScrolled} />
-        <SearchInput
-          value={searchQuery}
-          onChange={setSearchQuery}
-          onSearch={onSearch}
-          isFocused={isSearchFocused}
-          setIsFocused={setIsSearchFocused}
-          isScrolled={isScrolled}
-        />
+        <div className="flex items-center gap-6">
+          <Logo isScrolled={isScrolled} />
+          <div className="hidden md:flex">
+            <SearchInput
+              value={searchQuery}
+              onChange={setSearchQuery}
+              onSearch={onSearch}
+              isFocused={isSearchFocused}
+              setIsFocused={setIsSearchFocused}
+              isScrolled={isScrolled}
+            />
+          </div>
+        </div>
         <NavbarActions isScrolled={isScrolled} />
       </div>
-
-      {/* Subtle bottom glow effect */}
-      <div
-        className={`absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent
-        transition-all duration-700 ease-out
-        ${isScrolled ? "opacity-0 scale-x-0" : "opacity-100 scale-x-100"}`}
-      />
     </nav>
   );
 }

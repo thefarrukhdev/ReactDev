@@ -32,94 +32,81 @@ export default function ComponentPreview({
   const handleCopy = copyToClipboard;
 
   return (
-    <div className="w-full text-white space-y-8 relative">
+    <div className="w-full space-y-6 relative group">
       {/* HEADER */}
-      <div className="relative mb-8 p-8 rounded-3xl backdrop-blur-md border border-white/10 shadow-lg overflow-hidden group transition-transform duration-500">
-        <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/5 via-blue-500/10 to-purple-600/5" />
-        <div className="absolute inset-0 bg-gradient-to-tl from-transparent via-white/5 to-transparent group-hover:via-white/10 transition-opacity duration-500" />
-
-        <div className="relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
-          <div className="flex items-center gap-5">
-            <div className="p-4 rounded-2xl bg-gradient-to-br from-cyan-400/20 via-blue-500/10 to-purple-600/20 shadow-md backdrop-blur-sm border border-white/10 transition-transform duration-300 group-hover:scale-105">
-              <Sparkles className="w-7 h-7 text-white opacity-80" />
-            </div>
-            <div>
-              <h2 className="text-3xl font-bold bg-gradient-to-r from-cyan-200 via-blue-300 to-purple-400 bg-clip-text text-transparent">
-                {name}
-              </h2>
-              <p className="text-white/60 mt-1 text-base">Liquid Glass Component</p>
-            </div>
-          </div>
-
-          {showPreview && (
-            <LiquidButton
-              onClick={() => setPreviewVisible(!previewVisible)}
-              variant="secondary"
-            >
-              {previewVisible ? (
-                <>
-                  <EyeOff className="w-5 h-5" /> Hide
-                </>
-              ) : (
-                <>
-                  <Eye className="w-5 h-5" /> Show
-                </>
-              )}
-            </LiquidButton>
-          )}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h2 className="text-2xl font-bold tracking-tight text-foreground">
+            {name}
+          </h2>
+          <p className="text-muted-foreground mt-1 text-sm">Component preview and source code.</p>
         </div>
+
+        {showPreview && (
+          <button
+            onClick={() => setPreviewVisible(!previewVisible)}
+            className="inline-flex h-9 items-center justify-center rounded-md bg-secondary px-4 py-2 text-sm font-medium text-secondary-foreground shadow-sm hover:bg-secondary/80 focus-visible:outline-none"
+          >
+            {previewVisible ? (
+              <>
+                <EyeOff className="w-4 h-4 mr-2" /> Hide Preview
+              </>
+            ) : (
+              <>
+                <Eye className="w-4 h-4 mr-2" /> Show Preview
+              </>
+            )}
+          </button>
+        )}
       </div>
+
+      {/* TABS */}
+      {sections.length > 1 && (
+        <div className="inline-flex h-10 items-center justify-center rounded-md bg-muted p-1 text-muted-foreground">
+          {sections.map(({ id, label, icon: Icon }) => (
+            <button
+              key={id}
+              onClick={() => setActiveTab(id)}
+              className={`inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
+                activeTab === id
+                  ? "bg-background text-foreground shadow-sm"
+                  : "hover:bg-background/50 hover:text-foreground"
+              }`}
+            >
+              <Icon className="w-4 h-4 mr-2" />
+              {label}
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* PREVIEW */}
       {showPreview && previewVisible && (
-        <div className="relative mb-10 rounded-3xl border border-white/10 backdrop-blur-md shadow-lg overflow-hidden transition-transform duration-500">
-          <WindowHeader title="Component Preview" />
-          <div className="relative p-8 flex items-center justify-center min-h-[220px]">
+        <div className="relative rounded-xl border bg-card text-card-foreground shadow-sm mt-4">
+          <div className="relative p-6 flex min-h-[350px] items-center justify-center">
             {element}
           </div>
         </div>
       )}
 
-      {/* TABS */}
-      {sections.length > 1 && (
-        <div className="relative mb-6 overflow-x-auto">
-          <div className="flex flex-wrap gap-3 p-3 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 shadow-md">
-            {sections.map(({ id, label, icon: Icon }) => (
-              <LiquidButton
-                key={id}
-                onClick={() => setActiveTab(id)}
-                variant={activeTab === id ? "primary" : "ghost"}
-                className="px-5 py-2.5 text-sm font-medium transition-all duration-300"
-              >
-                <Icon className="w-5 h-5 shrink-0" />
-                <span className="whitespace-nowrap">{label}</span>
-              </LiquidButton>
-            ))}
-          </div>
-        </div>
-      )}
-
       {/* CONTENT */}
-      <div className="relative space-y-6">
+      <div className="relative space-y-6 mt-4">
         {sections.map(
           ({ id, label, content }) =>
             activeTab === id && (
-              <div key={id} className="relative fade-in">
-                <div className="overflow-hidden rounded-2xl border border-white/10 backdrop-blur-md shadow-lg">
-                  <div className="flex items-center justify-between">
-                    <WindowHeader title={label} />
-                    <LiquidButton
-                      onClick={() => handleCopy(content)}
-                      variant="secondary"
-                      className="m-3 flex items-center gap-2 px-4 py-2 text-sm"
-                    >
-                      <Copy className="w-4 h-4" /> Copy
-                    </LiquidButton>
-                  </div>
-                  <pre className="p-6 overflow-x-auto text-sm leading-relaxed text-emerald-200 font-mono bg-black/30">
-                    <code>{content}</code>
-                  </pre>
+              <div key={id} className="relative rounded-xl border bg-card shadow-sm overflow-hidden">
+                <div className="flex items-center justify-between border-b px-4 py-3 bg-muted/30">
+                  <span className="text-sm font-medium text-foreground">{label}</span>
+                  <button
+                    onClick={() => handleCopy(content)}
+                    className="inline-flex h-8 items-center justify-center rounded-md bg-secondary px-3 text-xs font-medium text-secondary-foreground hover:bg-secondary/80"
+                  >
+                    <Copy className="w-3 h-3 mr-2" /> Copy
+                  </button>
                 </div>
+                <pre className="p-4 overflow-x-auto text-sm leading-relaxed text-muted-foreground font-mono bg-zinc-950 dark:bg-zinc-950">
+                  <code className="text-zinc-50">{content}</code>
+                </pre>
               </div>
             )
         )}
@@ -127,10 +114,10 @@ export default function ComponentPreview({
 
       {/* SNACKBAR */}
       {copied && (
-        <div className="fixed bottom-8 right-8 z-50 transition-transform duration-500">
-          <div className="px-5 py-3 rounded-xl backdrop-blur-md shadow-lg border border-cyan-400/30 bg-cyan-500/10">
-            <span className="text-white font-medium flex items-center gap-2">
-              ✓ Copied to clipboard!
+        <div className="fixed bottom-4 right-4 z-50 animate-in slide-in-from-bottom-5">
+          <div className="px-4 py-3 rounded-md bg-foreground text-background shadow-lg border border-border">
+            <span className="font-medium text-sm flex items-center gap-2">
+              ✓ Copied to clipboard
             </span>
           </div>
         </div>
