@@ -14,6 +14,7 @@
     "clean": "rm -rf .next out node_modules/.cache"
   },
   "dependencies": {
+    "@serwist/next": "^9.5.12",
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.21",
     "lucide-react": "^0.542.0",

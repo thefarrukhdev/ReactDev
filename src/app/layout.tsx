@@ -1,5 +1,5 @@
 import Image from "next/image";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../styles/globals.css";
 
@@ -13,11 +13,45 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const viewport: Viewport = {
+  themeColor: "#000000",
+};
+
 export const metadata: Metadata = {
-  title: "Component Library",
+  title: "Component Library | ReactDev",
   description: "Custom component library with Next.js",
+  keywords: ["Next.js", "React", "Component Library", "PWA", "ReactDev"],
+  authors: [{ name: "ReactDev" }],
+  manifest: "/manifest.json",
   icons: {
     icon: "/ReactLogo.png",
+    apple: "/apple-touch-icon.png",
+  },
+  openGraph: {
+    title: "Component Library | ReactDev",
+    description: "Custom component library with Next.js",
+    url: "https://reactdev.example.com",
+    siteName: "ReactDev",
+    images: [
+      {
+        url: "/icon-512x512.png",
+        width: 512,
+        height: 512,
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Component Library | ReactDev",
+    description: "Custom component library with Next.js",
+    images: ["/icon-512x512.png"],
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Component Library",
   },
 };
 
