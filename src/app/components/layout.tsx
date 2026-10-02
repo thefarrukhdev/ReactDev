@@ -26,7 +26,7 @@ export default function ComponentsLayout({
   };
 
   return (
-    <div className="flex flex-col h-screen w-screen bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 text-slate-100 overflow-hidden">
+    <div className="flex flex-col h-screen w-screen bg-transparent text-slate-100 overflow-hidden">
       <Navbar onSearch={handleSearch} />
 
       <div className="flex flex-1 overflow-hidden relative">

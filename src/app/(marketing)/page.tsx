@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 
 export default function HomePage() {
   return (
-    <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-background">
+    <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-transparent">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image 
